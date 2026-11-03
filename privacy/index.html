@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — MeetPoint</title>
+<meta name="description" content="MeetPoint collects no personal data: your plan and messages stay with your family, sealed with your family's key.">
+<link rel="icon" href="../manual/img/icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<div class="wrap">
+<nav class="top">
+  <a class="home" href="../"><img src="../manual/img/icon.png" alt="">MeetPoint</a>
+  <a href="../manual/">Manual</a>
+  <a href="../support/">Support</a>
+  <a href="../privacy/" aria-current="page">Privacy</a>
+</nav>
+<h1>Privacy Policy</h1>
+<p class="updated">Last updated: 3 November 2026 · applies to MeetPoint for iPhone and Android and to this website</p>
+<p>MeetPoint is made by Miguel Gonçalves. This policy explains what the app does with your data. In short: <strong>the developer collects no personal data.</strong> Your plan, your position and your messages go only to your own family, sealed with a key that only your family's phones have.</p>
+<h2>Data we collect</h2>
+<p>None. MeetPoint has no account, no analytics, no advertising and no tracking. The developer can't see your plan, your family, your position or your messages.</p>
+<h2>Your family's plan</h2>
+<p>The plan — meeting points, names, phone numbers, tasks and notes — is stored on the phones of your family. It goes from one phone to another only when you invite someone (QR code or link) or when the plan is updated. Whoever has the invite can join and read the family's messages, so share it only with your family.</p>
+<h2>Your location</h2>
+<p>MeetPoint uses your location to show how far the meeting points are, to tell your family when you reach a meeting point, and to send your position to your family about every 15 minutes when you move, also while the app is in the background. It is sent only to the members of your family, sealed with your family's key. It also finds which country you are in, on the phone, to show the right emergency number.</p>
+<h2>How messages travel</h2>
+<p>Every message MeetPoint sends (“I'm OK”, “Help”, positions, confirmations, plan updates) is encrypted on your phone with your family's key (AES-GCM). It can then travel four ways:</p>
+<ul>
+  <li><strong>Internet relay.</strong> Sealed messages go through an ntfy relay server — by default one run by the developer, or one you choose in the settings. The server can't read them or tell who is talking; it sees the sealed message, a topic name worked out from your family's key, the time, and the IP address of the phone that connects. Messages are kept for at most 12 hours so phones that were offline catch up, then deleted. Server logs are used only to keep the service running.</li>
+  <li><strong>Phones nearby.</strong> Over Bluetooth (and Wi-Fi between iPhones), sealed messages pass to other phones running MeetPoint. Phones of other families may carry your sealed messages to pass them on, without being able to read them, and drop them when they expire (at most 7 days).</li>
+  <li><strong>Meshtastic radio.</strong> If you link a radio, sealed messages go out over LoRa. If you turn on <em>Also Send as Plain Text</em> (off by default), a short readable copy with your name and position is sent too, and anyone on that radio channel can read it.</li>
+  <li><strong>Text message (SMS).</strong> Only when you tap <em>Send My Situation by SMS</em>, or confirm a family member's message by SMS. A text message is not encrypted: it contains your name, how you are and where you are, and goes through your mobile operator like any SMS. On Android, MeetPoint reads incoming text messages only to find MeetPoint links from your family.</li>
+</ul>
+<h2>Maps and search</h2>
+<p>Street maps come from OpenFreeMap (OpenStreetMap data). To download them, your phone asks OpenFreeMap's servers for the map around your meeting points, which gives them your IP address and those areas, as with any map. Searching for an address uses Apple's (iPhone) or Google's (Android) location services. The country for the emergency number is looked up on the phone, and checked with Apple's service on iPhone when there is internet.</p>
+<h2>Camera, Bluetooth and the log</h2>
+<p>The camera is used only to scan a family invite QR code; no picture is kept. Bluetooth is used for phones nearby and for your Meshtastic radio. The Log records what MeetPoint sent and received, and is kept only on your phone; it leaves only if you share it yourself.</p>
+<h2>This website</h2>
+<p>This website uses no cookies and stores nothing on your device. It has no analytics, no advertising, no tracking and no embedded content from other sites; the fonts are served from this site too. The site is hosted by GitHub Pages, which receives your IP address as part of delivering the pages and may keep it in its server logs for security; see the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>.</p>
+<h2>Children</h2>
+<p>MeetPoint is meant to be set up by a parent or guardian for the family. The developer collects no data from anyone, including children.</p>
+<h2>Deleting your data</h2>
+<p>⚙︎ → Delete Plan removes the plan from your phone, and uninstalling MeetPoint removes everything it kept (plan, messages, log). Copies on your family's phones stay there until they delete them; sealed messages on the relay and on carrying phones expire on their own.</p>
+<h2>Changes</h2>
+<p>If this policy changes, the new version will be published on this page with a new date.</p>
+<h2>Contact</h2>
+<p>Questions about privacy: <a href="mailto:miguelvirt@gmail.com">miguelvirt@gmail.com</a></p>
+<footer>MeetPoint · family emergency meeting plan, for iPhone and Android · © 2026 Miguel Gonçalves</footer>
+</div>
+</body>
+</html>

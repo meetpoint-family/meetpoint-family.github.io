@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MeetPoint Manual</title>
+<meta name="description" content="How to make your family's emergency plan with MeetPoint and use it on the day.">
+<link rel="icon" href="img/icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* Layout: a field manual — sticky chapter rail on the left, reading column with phone screenshots set beside the steps. */
+:root {
+  --bg: #faf6f1;
+  --surface: #ffffff;
+  --ink: #1d140d;
+  --muted: #6a5c50;
+  --line: #e6dbcf;
+  --neon: #c25a00;
+  --neon-soft: #fdeedd;
+  --ok: #138a4b;
+  --warn: #b35c00;
+  --bad: #c62828;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f0b08; --surface: #1a1410; --ink: #f6efe8; --muted: #b3a597; --line: #33281f;
+    --neon: #ff9a3c; --neon-soft: #3a210c; --ok: #42d48a; --warn: #ffad4d; --bad: #ff6b6b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f0b08; --surface: #1a1410; --ink: #f6efe8; --muted: #b3a597; --line: #33281f;
+  --neon: #ff9a3c; --neon-soft: #3a210c; --ok: #42d48a; --warn: #ffad4d; --bad: #ff6b6b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); }
+a { color: var(--neon); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--neon); outline-offset: 3px; border-radius: 4px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+kbd { font: 600 0.82em var(--body); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 0 6px; background: var(--surface); white-space: nowrap; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 56px); }
+
+/* Masthead */
+header.mast { padding-block: 48px 28px; }
+.brand { display: flex; align-items: center; gap: 16px; }
+.brand img { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 0 0 1px var(--line), 0 8px 30px -10px var(--neon); }
+.eyebrow { font: 600 13px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--neon); }
+h1 { font: 800 clamp(32px, 4.5vw, 46px)/1.08 var(--display); letter-spacing: -0.01em; margin: 18px 0 14px; text-wrap: balance; }
+.lede { font-size: 19px; color: var(--muted); max-width: 60ch; margin: 0; }
+
+.tour { margin-block: 30px 10px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.tour video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; display: block; border: 1px solid var(--line); }
+.tour p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* Body: rail + content */
+.layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; padding-block: 30px 80px; }
+nav.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 70px); align-self: start; font-size: 15px; }
+nav.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: ch; }
+nav.rail li { counter-increment: ch; }
+nav.rail a { display: flex; gap: 10px; padding: 6px 10px; border-radius: 8px; color: var(--muted); text-decoration: none; }
+nav.rail a::before { content: counter(ch, decimal-leading-zero); font: 500 12px/1.9 var(--mono); color: var(--neon); }
+nav.rail a:hover { background: var(--neon-soft); color: var(--ink); }
+
+main { min-width: 0; }
+section.ch { padding-block: 34px; border-top: 1px solid var(--line); }
+section.ch:first-child { border-top: 0; padding-top: 0; }
+h2 { font: 800 clamp(24px, 3vw, 30px)/1.15 var(--display); letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+h2 .num { font: 500 15px var(--mono); color: var(--neon); display: block; margin-bottom: 8px; letter-spacing: 0; }
+h3 { font: 600 21px/1.3 var(--display); margin: 28px 0 8px; }
+p { margin: 0 0 14px; max-width: 68ch; }
+.intro { color: var(--muted); font-size: 18px; }
+ul, ol.steps { padding-left: 22px; margin: 0 0 16px; max-width: 66ch; }
+li { margin-bottom: 6px; }
+ol.steps li::marker { color: var(--neon); font-weight: 700; }
+
+/* Screen + text pairs */
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 32px; align-items: start; margin-block: 18px 8px; }
+.pair.flip { grid-template-columns: 250px minmax(0, 1fr); }
+.pair.flip > figure { order: -1; }
+.shots { display: flex; gap: 16px; flex-wrap: wrap; margin-block: 16px; }
+.shots figure { flex: 1 1 200px; max-width: 250px; }
+figure { margin: 0; }
+figure.wide { margin-block: 16px; max-width: 720px; }
+figure.wide img { border-radius: 22px; }
+.wide-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+figure img { width: 100%; max-width: 100%; display: block; border-radius: 26px; border: 6px solid #10141c; box-shadow: 0 0 0 1px var(--line), 0 18px 40px -24px rgba(90, 40, 0, .45); background: #000; }
+figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.45; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin-block: 14px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 15.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font: 600 12.5px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: color-mix(in srgb, var(--neon-soft) 45%, var(--surface)); }
+td:first-child { white-space: nowrap; font-weight: 700; }
+
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; box-shadow: 0 0 8px currentColor; }
+.dot.ok { background: var(--ok); color: var(--ok); }
+.dot.warn { background: #e8b100; color: #e8b100; }
+.dot.bad { background: var(--bad); color: var(--bad); }
+.dot.off { background: var(--muted); color: transparent; box-shadow: none; }
+
+.note { border-left: 3px solid var(--neon); background: var(--neon-soft); padding: 12px 16px; border-radius: 0 10px 10px 0; margin-block: 16px; max-width: 68ch; }
+.note p:last-child { margin: 0; }
+.note strong { color: var(--ink); }
+
+.small { font: 500 13px var(--mono); color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var(--muted); font-size: 14px; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  nav.rail { position: static; }
+  /* The chapter list sits above the text here: a line and some room before chapter 01. */
+  section.ch:first-child { border-top: 1px solid var(--line); padding-top: 34px; margin-top: 18px; }
+  nav.rail ol { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .pair, .pair.flip { grid-template-columns: minmax(0, 1fr); }
+  .pair > figure, .pair.flip > figure { order: 0; max-width: 250px; }
+}
+.print-only, .print-inline { display: none; }
+
+/* Print / Save as PDF: always light, one column, no player, nothing split across pages. */
+@page { size: A4; margin: 16mm 15mm 18mm; }
+@media print {
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
+    --bg: #ffffff; --surface: #ffffff; --ink: #111827; --muted: #4b5568; --line: #d5dce6;
+    --neon: #b35300; --neon-soft: #fdf0e3; --ok: #138a4b; --warn: #b35c00; --bad: #c62828;
+    color-scheme: light;
+  }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html { scroll-behavior: auto; }
+  body { font-size: 10.5pt; line-height: 1.5; background: #fff; }
+  .wrap { max-width: none; padding-inline: 0; }
+  header.mast { padding-block: 0 6mm; }
+  h1 { font-size: 34pt; margin: 6mm 0 3mm; }
+  .lede { font-size: 12.5pt; }
+  .tour video, nav.rail { display: none; }
+  .print-only { display: block; }
+  .print-inline { display: inline; }
+  .tour { margin-block: 6mm 0; break-inside: avoid; }
+  .tour img { width: 100%; border-radius: 8px; border: 1px solid var(--line); }
+  .layout { display: block; padding-block: 0; }
+  section.ch { padding-block: 6mm 2mm; border-top: 1px solid var(--line); }
+  section.ch:first-child { border-top: 0; }
+  .dot { width: 8px; height: 8px; box-shadow: none; }
+  h2 { font-size: 22pt; break-inside: avoid; break-after: avoid; }
+  h2 .num { break-after: avoid; }
+  h3 { font-size: 13.5pt; margin-top: 5mm; break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  .intro { font-size: 12pt; }
+  .pair, .pair.flip { grid-template-columns: minmax(0, 1fr) 46mm; gap: 7mm; break-inside: avoid; }
+  .pair.flip { grid-template-columns: 46mm minmax(0, 1fr); }
+  .shots { gap: 6mm; break-inside: avoid; }
+  .shots figure { flex: 0 0 46mm; max-width: 46mm; }
+  figure { break-inside: avoid; }
+  figure img { border-width: 3px; border-radius: 14px; box-shadow: none; }
+  figcaption { font-size: 8.5pt; }
+  figure.wide { max-width: 130mm; }
+  figure.wide img { border-radius: 10px; }
+  .wide-pair { grid-template-columns: 1fr 1fr; gap: 6mm; break-inside: avoid; }
+  .table-wrap { overflow: visible; break-inside: avoid; }
+  table { font-size: 9.5pt; }
+  tr { break-inside: avoid; }
+  .note { break-inside: avoid; }
+  a { color: var(--ink); text-decoration: none; }
+  footer { padding-block: 4mm 0; font-size: 8.5pt; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+/* No rubber-band bounce at the top and bottom: it pulled the fixed bar down with the page. */
+html, body { overscroll-behavior-y: none; }
+/* Site navigation (same as the other pages of this site) */
+nav.top { display: flex; align-items: center; gap: 18px; padding-block: 10px; flex-wrap: wrap; position: sticky; top: 0; z-index: 20; background: var(--bg); }
+nav.top .home { display: flex; align-items: center; gap: 10px; font: 700 17px var(--display); color: var(--ink); text-decoration: none; margin-right: auto; }
+nav.top .home img { width: 26px; height: 26px; border-radius: 7px; }
+nav.top a:not(.home) { color: var(--muted); text-decoration: none; font-size: 15px; }
+nav.top a:not(.home):hover, nav.top a[aria-current] { color: var(--neon); }
+header.mast { padding-top: 16px; }
+html { scroll-padding-top: 64px; }
+@media print { nav.top { display: none; } }
+@media (max-width: 600px) { td:first-child { white-space: normal; min-width: 7.5em; } }
+.ico { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 26px; padding: 0 4px; border-radius: 13px; font: 700 14px var(--body); vertical-align: -6px; margin-right: 6px; }
+.ico.g { color: var(--ok); } .ico.y { color: #d9a300; } .ico.r { color: var(--bad); } .ico.k { color: var(--muted); } .ico.b { color: #1f7ae0; }
+.ico.num { background: #ffb800; color: #000; }
+.ico.redc { background: var(--bad); color: #fff; }
+.pdot { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; color: #fff; font: 700 11px var(--body); vertical-align: -7px; margin-right: 6px; }
+</style></head>
+<body>
+<nav class="top wrap">
+  <a class="home" href="../"><img src="img/icon.png" alt="">MeetPoint</a>
+  <a href="./" aria-current="page">Manual</a>
+  <a href="../support/">Support</a>
+  <a href="../privacy/">Privacy</a>
+</nav>
+
+<header class="mast wrap">
+  <div class="brand">
+    <img src="img/icon.png" alt="MeetPoint app icon: an orange neon map pin">
+    <span class="eyebrow">User manual · iPhone &amp; Android · Family emergency plan</span>
+  </div>
+  <h1>MeetPoint Manual</h1>
+  <p class="lede">After an earthquake, a fire or a long blackout, calls fail and families can't reach each other. MeetPoint keeps your family's plan on every phone — where to meet, who does what — and gets your news through by whatever still works: text message, internet, phones nearby or Meshtastic radio.</p>
+</header>
+
+<div class="wrap layout">
+  <nav class="rail" aria-label="Chapters">
+    <ol>
+      <li><a href="#start">Before you start</a></li>
+      <li><a href="#make">Making the family</a></li>
+      <li><a href="#join">Joining a family</a></li>
+      <li><a href="#home">The plan screen</a></li>
+      <li><a href="#alert">“I'm OK” and “Help”</a></li>
+      <li><a href="#family">Reading the family list</a></li>
+      <li><a href="#map">The map</a></li>
+      <li><a href="#networks">Networks</a></li>
+      <li><a href="#sms">Text messages</a></li>
+      <li><a href="#radio">Meshtastic radio</a></li>
+      <li><a href="#emergency">Emergency numbers</a></li>
+      <li><a href="#good">A good plan</a></li>
+      <li><a href="#trouble">Troubleshooting</a></li>
+      <li><a href="#reference">Quick reference</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section class="ch" id="start">
+      <h2><span class="num">01</span>Before you start</h2>
+      <p class="intro">Make the plan now, while everything works, and make it together. A plan only helps if everyone knows it — and everyone in the family needs MeetPoint on their own phone, iPhone or Android.</p>
+      <p>One person makes the family and its plan (chapter 02). Everyone else joins with an invite from that person's phone (chapter 03). From then on, the phones keep each other up to date on their own.</p>
+      <h3>Permissions</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Permission</th><th>What for</th></tr></thead>
+          <tbody>
+            <tr><td>Location — Always</td><td>Distances to the meeting points, telling the family when you arrive at one, and sending your position while MeetPoint is in the background. On iPhone, choose <strong>Allow While Using App</strong> first, then <strong>Change to Always Allow</strong> when iOS asks. On Android, <strong>While using the app</strong> is enough: MeetPoint stays running with its notification.</td></tr>
+            <tr><td>Bluetooth / Nearby devices</td><td>Passing messages phone to phone with no network, and linking a Meshtastic radio.</td></tr>
+            <tr><td>Notifications (Android)</td><td>Keeps MeetPoint running in the background (a quiet notification stays in the bar), and tells you when a MeetPoint text message arrives.</td></tr>
+            <tr><td>SMS (Android)</td><td>Sending your situation by text message from inside MeetPoint, and reading the MeetPoint links your family texts you.</td></tr>
+            <tr><td>Camera</td><td>Scanning a family invite QR code.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><p><strong>Keep MeetPoint running.</strong> It works in the background, also with the screen locked. Don't swipe it away from the recent apps: a closed MeetPoint can't pass messages on, and your family sees you as <em>Offline</em>.</p></div>
+      <p>What works with no internet: the whole plan, GPS and distances, the saved map, phones nearby, the Meshtastic radio and text messages. Only searching for an address and downloading the map need internet.</p>
+    </section>
+
+    <!-- 02 -->
+    <section class="ch" id="make">
+      <h2><span class="num">02</span>Making the family</h2>
+      <p class="intro">On the first screen, tap <strong>Make a New Plan</strong>. Only one person does this; the others join afterwards.</p>
+      <h3>About you</h3>
+      <p>Type your name and your mobile number, and pick your dot for the map: a colour and one or two letters. The number lets the family text you when there's no internet. Names are unique in the family. Tap <kbd>✓</kbd>.</p>
+      <h3>Meeting points</h3>
+      <p>A new plan starts with the three meeting points that civil protection guides recommend. Everyone goes to point 1. If it can't be reached, or nobody arrives in time, they go to the next one.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Point</th><th>What it is for</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ico num">1</span>Near home</td><td>Somewhere you can walk to in a few minutes, away from buildings: a square, a park, a car park. For a fire or an earthquake at home.</td></tr>
+            <tr><td><span class="ico num">2</span>Out of the neighborhood</td><td>Somewhere everyone knows, further away, for when you can't get home or the area is closed.</td></tr>
+            <tr><td><span class="ico num">3</span>Out of town</td><td>A relative's or friend's house, if the whole town has to leave.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Open ⚙︎ (top right of the plan) and tap a meeting point. Give it a name and a note on where exactly to wait (“by the fountain”), then place it: tap the map, use <strong>Use Where I Am Now</strong> while you are standing there (the most exact), or search an address (needs internet). <kbd>✓</kbd> keeps it.</p>
+      <p><strong>Add Meeting Point</strong> adds another one; drag to change the order, swipe left to delete. <strong>Move on if nobody arrives</strong> with <strong>Wait before moving on</strong> (30 minutes unless you change it) says how long to wait at a point before going to the next one.</p>
+      <h3>Who does what, and notes</h3>
+      <p>Under <strong>Who Does What</strong>, tap <strong>Add Task</strong>, choose who (a person, or Anyone) and write the job: “Picks up Ana at school”, “Takes the emergency bag and the dog”, “Turns off the gas”. <strong>Notes</strong> is for everything else: medication, documents, where the emergency bag is.</p>
+      <h3>Invite the family</h3>
+      <p>In ⚙︎, tap <strong>Invite Family — QR Code or Link</strong>. Each person scans the QR code with their phone, or opens the link you send them (<strong>Send Invite Link</strong>). Every phone in the family then adds them on its own.</p>
+      <div class="note"><p><strong>Only the person who made the family changes the plan</strong> — points, tasks, notes. Their changes reach every phone over the internet or phones nearby. Everyone else can change their own name, number and dot, and add emergency points.</p></div>
+      <h3>Emergency points</h3>
+      <p>On the day, a place to meet that isn't in the plan — the road is closed, the family is together somewhere else. Anyone can add one under ⚙︎ → <strong>Emergency Points</strong> → <strong>Add Emergency Point</strong>. It goes to the whole family and shows in red with a warning sign on the map, until the family's creator, or whoever added it, takes it off.</p>
+    </section>
+
+    <!-- 03 -->
+    <section class="ch" id="join">
+      <h2><span class="num">03</span>Joining a family</h2>
+      <p class="intro">Someone in your family already made the plan? You join from your own phone.</p>
+      <ol class="steps">
+        <li>Install MeetPoint and open it.</li>
+        <li>Scan the invite QR code on their phone (with MeetPoint's scanner, or the iPhone's Camera), or open the invite link they sent you.</li>
+        <li>Type your name and, if you like, your mobile number, and pick your dot. Tap <kbd>✓</kbd>.</li>
+      </ol>
+      <p>The plan opens, and every phone in the family adds you. Only you can change your name, number and dot afterwards, on your own phone.</p>
+      <p>Open an invite again later, when the plan changed while you were away: MeetPoint offers <strong>Update My Plan</strong>, which brings in the newer points and people and keeps who you are.</p>
+      <div class="note"><p><strong>Share the invite only with your family.</strong> Whoever has it can join and read the family's messages.</p></div>
+    </section>
+
+    <!-- 04 -->
+    <section class="ch" id="home">
+      <h2><span class="num">04</span>The plan screen</h2>
+      <p class="intro">MeetPoint opens straight on the plan, with or without a network. From top to bottom:</p>
+      <ul>
+        <li><strong>The family's name and ⚙︎</strong> — the settings: plan, people, invite, networks, language.</li>
+        <li><strong>Network icons</strong> — SMS, Internet, Nearby, Radio, each in the colour of how it's doing right now (chapter 08). Tap them for the details.</li>
+        <li><strong>I'm OK</strong> and <strong>Help</strong> — your news to the family (chapter 05).</li>
+        <li><strong>Send My Situation by SMS</strong> — the text message, when you choose to send one (chapter 09). Only on phones that can send texts.</li>
+        <li><strong>Family</strong> — you first, then everyone else: how they are, how news reaches them and where they are (chapter 06). Touch and hold a person to call or text them.</li>
+        <li><strong>Map</strong> — the meeting points and the family. Tap it for the full map with distances (chapter 07).</li>
+        <li><strong>Who Does What</strong> — your own tasks have a star.</li>
+        <li><strong>Emergency</strong> — the emergency numbers for where you are, and your position (chapter 11).</li>
+        <li><strong>Notes</strong> and the <strong>Log</strong>.</li>
+      </ul>
+      <p>⚙︎ → <strong>Show Explanations</strong> adds a short note under each part saying how it works. Turn it off once you know.</p>
+      <h3>The log</h3>
+      <p>The <strong>Log</strong> at the end of the plan records everything that happened: each message sent and received, with how it came, every confirmation, changes to the meeting points, and networks, phones and the radio coming and going. It is kept in a file on the phone. <strong>Share Log File</strong> sends it — useful when asking for support.</p>
+    </section>
+
+    <!-- 05 -->
+    <section class="ch" id="alert">
+      <h2><span class="num">05</span>“I'm OK” and “Help”</h2>
+      <p class="intro">Two buttons, side by side, hard to mix up: <strong>I'm OK</strong> in green and <strong>Help</strong> in red. Tap one and it stays lit.</p>
+      <p>Your news goes out at once on every network that works — the internet, phones nearby and your Meshtastic radio — sealed so only your family can read it, with where you are. MeetPoint keeps sending it until <strong>everyone in the family</strong> has confirmed it, and then stops using the other networks. Each family phone confirms on its own; you don't wait for anyone to tap anything.</p>
+      <p>The lit button rides along with your position: every time it goes out, your family sees again how you are.</p>
+      <h3>Is it through?</h3>
+      <p>Watch your own row at the top of the Family list:</p>
+      <ul>
+        <li><span class="ico y">✓</span>Yellow — sent, nobody in the family has it yet.</li>
+        <li><span class="ico g">✓</span>Green (or <span class="ico r">⚠</span>red for Help) — someone in the family got it.</li>
+        <li>Back to yellow — the family no longer hears your updates (nobody online, no SMS confirmed lately).</li>
+      </ul>
+      <p>The Log has the details: which networks it went out on, and who confirmed it, how.</p>
+      <h3>Turning it off</h3>
+      <p>Tap the lit button again. The family's phones drop it, and your position goes on alone. If the message also went by text message in the last day, the cancel goes by text message too, so a family member reached only by SMS hears about it.</p>
+      <h3>Arriving at a meeting point</h3>
+      <p>You don't need to tell anyone you arrived. When you get to a meeting point (or an emergency point), MeetPoint tells the family on its own, and their list shows the point's number next to you. When you walk well away from it (about 150 m), it tells them you left.</p>
+      <h3>Your position</h3>
+      <p>MeetPoint sends where you are about every 15 minutes, when you moved, over the internet, phones nearby and the radio. It never goes by text message on its own. Between positions, a small “I'm here” signal tells the family you are still reachable.</p>
+    </section>
+
+    <!-- 06 -->
+    <section class="ch" id="family">
+      <h2><span class="num">06</span>Reading the family list</h2>
+      <p class="intro">Each row is one person: their dot, their name, then three signs — how news gets through, how they are, and where they are.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sign</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pdot" style="background:#2e7dd7">AM</span>In colour</td><td>Something got through from them lately.</td></tr>
+            <tr><td><span class="pdot" style="background:#8e8e93">AM</span>Grey</td><td>Nothing has come from them for a while: lost contact. Their dot on the map turns grey at the last place known.</td></tr>
+            <tr><td><span class="ico g"><svg width="18" height="14" viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M2 6.5a15 15 0 0 1 20 0"/><path d="M5.5 10a10 10 0 0 1 13 0"/><path d="M9 13.5a5 5 0 0 1 6 0"/><circle cx="12" cy="16.5" r="1" fill="currentColor"/></svg></span>Way in</td><td>How their newest message came: <strong>SMS</strong> (speech bubble), <strong>internet</strong> (Wi-Fi waves), <strong>a phone nearby</strong> (phone with waves) or the <strong>radio</strong> (antenna). Green while they are reachable, grey once nothing has come for a while.</td></tr>
+            <tr><td><span class="ico y"><svg width="18" height="14" viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M2 6.5a15 15 0 0 1 20 0"/><path d="M5.5 10a10 10 0 0 1 13 0"/><path d="M9 13.5a5 5 0 0 1 6 0"/><circle cx="12" cy="16.5" r="1" fill="currentColor"/></svg></span>Your way out</td><td>On your own row: how your news goes out. Yellow when it went out, green when the family got it, grey when nothing was sent lately.</td></tr>
+            <tr><td><span class="ico g">✓</span>OK</td><td>They sent “I'm OK”.</td></tr>
+            <tr><td><span class="ico r">⚠</span>Help</td><td>They need help.</td></tr>
+            <tr><td><span class="ico k">?</span>No news</td><td>They haven't sent either, or turned it off.</td></tr>
+            <tr><td><span class="ico k">✓</span>Grey OK or help</td><td>Their last news, from before contact was lost. It may be old.</td></tr>
+            <tr><td><span class="ico num">2</span>Point number</td><td>They are at that meeting point.</td></tr>
+            <tr><td><span class="ico redc">⚠</span>Red sign</td><td>They are at an emergency point.</td></tr>
+            <tr><td><span class="ico k">⌖</span>Crossed pin</td><td>Not at a meeting point.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Touch and hold someone's row to <strong>Call</strong> or <strong>Text</strong> them.</p>
+    </section>
+
+    <!-- 07 -->
+    <section class="ch" id="map">
+      <h2><span class="num">07</span>The map</h2>
+      <p class="intro">The map shows the meeting points (yellow, numbered), emergency points (red, with a warning sign), the family's dots at their last known place, and you.</p>
+      <p>People at a meeting point sit as small dots on the edge of its circle. People together somewhere else show as their dots side by side. A red ring around someone's dot means they need help, a green one that they're OK.</p>
+      <h3>Distances</h3>
+      <p>Under the full map, a table shows <strong>You</strong> and each family member against points 1 to 3: the distance from each one to each point, with the nearest in bold, and how long ago their position came. Tap the coordinates under a name to copy them — to read out to rescuers, or paste in another map app. They turn grey when contact with that person is lost.</p>
+      <h3>Offline map</h3>
+      <p>The streets around each meeting point and the area between them are saved on the phone on their own while there's internet, and again when a point moves. <strong>Offline Maps…</strong> shows what is saved and how much space it takes. Without internet and without a saved map, MeetPoint shows its <strong>Simple Map</strong>: the points and the family with distances, but no streets. You can switch to it any time with the button at the top.</p>
+      <p class="small">Map data © OpenStreetMap contributors, via OpenFreeMap.</p>
+    </section>
+
+    <!-- 08 -->
+    <section class="ch" id="networks">
+      <h2><span class="num">08</span>Networks</h2>
+      <p class="intro">MeetPoint uses four ways to reach the family, all at once. The icons at the top of the plan show how each is doing right now.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Colour</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><span class="dot ok"></span>Green</td><td>Working now.</td></tr>
+            <tr><td><span class="dot warn"></span>Yellow</td><td>Switched on, but not through yet: Wi-Fi with no answer from the relay, Bluetooth on with no MeetPoint phone in range, a radio still connecting.</td></tr>
+            <tr><td><span class="dot off"></span>Grey</td><td>Off: no Wi-Fi or mobile data, Bluetooth off, no radio linked.</td></tr>
+            <tr><td><span class="dot" style="background:#1f7ae0;color:#1f7ae0"></span>Blue (iPhone)</td><td>Nearby with Bluetooth off but Wi-Fi on: other iPhones can still be reached over Wi-Fi, Android phones can't.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>1 · Text message (SMS)</h3>
+      <p>Needs only a mobile signal, not internet, and often gets through when calls don't. Sent when you choose to (chapter 09).</p>
+      <h3>2 · Internet</h3>
+      <p>Over Wi-Fi or mobile data, sealed messages go through a relay server. The server can't read them or tell who's talking. It keeps them for 12 hours, so a phone that was offline catches up when it comes back. Everyone in the family must use the same server: ⚙︎ → <strong>Internet Relay</strong> shows it, whether it's working, and lets you turn the internet off for MeetPoint or use your own <a href="https://ntfy.sh">ntfy</a> server.</p>
+      <h3>3 · Phones nearby</h3>
+      <p>With no network at all, phones with MeetPoint pass messages to each other over Bluetooth, about 10 to 50 metres apart — iPhone and Android alike. Two iPhones also meet over Wi-Fi.</p>
+      <p>Each phone keeps the family's recent messages and passes them on to any family phone it meets, also phones of other families, which carry them sealed without being able to read them. “I'm OK”, “Help”, arrivals and cancels are carried for up to 7 days, positions for a day. So a family member who walks from one place to another can carry everyone's news with them.</p>
+      <h3>4 · Meshtastic radio</h3>
+      <p>A small LoRa radio that carries short messages for kilometres, from radio to radio, with no phone network (chapter 10).</p>
+      <p>Tap the network icons to see each network in words, and how many messages this phone is carrying to pass on.</p>
+    </section>
+
+    <!-- 09 -->
+    <section class="ch" id="sms">
+      <h2><span class="num">09</span>Text messages</h2>
+      <p class="intro">MeetPoint never sends a text message on its own. When you want one to go out, tap <strong>Send My Situation by SMS</strong>.</p>
+      <p>The text goes to everyone in the family with a number. It says who you are, how you are (“I'm OK”, “I NEED HELP”, or where you are) and any emergency points, with a MeetPoint link that carries the same news sealed. For example:</p>
+      <p><code>Miguel: I'm OK. Open in MeetPoint: meetpoint://m/…</code></p>
+      <ul>
+        <li><strong>iPhone:</strong> Messages opens with everyone's numbers and the text filled in. Tap send. Receiving one, tap its MeetPoint link to open the news in the app.</li>
+        <li><strong>Android:</strong> MeetPoint shows the text, and sends it itself when you confirm. Received MeetPoint texts are read on their own, with a notification.</li>
+      </ul>
+      <p>A family member who can only be reached by SMS gets a confirmation back by SMS: on Android on its own, on iPhone Messages opens with the confirmation ready, one tap to send.</p>
+      <p>On an iPhone, Messages sends it as an SMS over the mobile network when there's no internet if Settings → Apps → Messages → <strong>Send as Text Message</strong> is on. With no signal at all, texts wait and go out by themselves when the network comes back.</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="ch" id="radio">
+      <h2><span class="num">10</span>Meshtastic radio</h2>
+      <p class="intro">A <a href="https://meshtastic.org">Meshtastic</a> radio is a small LoRa radio that sends short messages over kilometres, from radio to radio, with no phone network at all. If you have one, MeetPoint uses it.</p>
+      <h3>Link your radio</h3>
+      <ol class="steps">
+        <li>Switch the radio on and keep it close. Close the Meshtastic app first: a radio talks to one app at a time.</li>
+        <li>In MeetPoint, open ⚙︎ → <strong>Meshtastic Radio</strong> → <strong>Search for Radios</strong>.</li>
+        <li>Tap your radio. If the phone asks for a PIN, it's on the radio's screen (or 123456 on radios without one).</li>
+      </ol>
+      <p>From then on MeetPoint reconnects by itself whenever the radio is on and near. The Radio icon shows its name and how many other radios it heard in the last two hours.</p>
+      <h3>Set Up Radio</h3>
+      <p>A new radio sends nothing until it has a region. <strong>Set Up Radio</strong> sets its name, region (the law sets which frequencies radios may use where you are) and mode, and the radio restarts to take them. Radios only hear each other in the same mode: keep <strong>Long Fast</strong> unless everyone changes. Only these settings change; the radio keeps its channels and still passes on messages for other Meshtastic radios.</p>
+      <h3>What goes over the radio</h3>
+      <ul>
+        <li>Your “I'm OK”, “Help”, arrivals and position, sealed: other MeetPoint phones on the radio network read them, and nobody else can.</li>
+        <li>Messages from family phones nearby: your phone passes them on to the radio, so they go much further than Bluetooth.</li>
+        <li>With <strong>Also Send as Plain Text</strong> on (off unless you turn it on), a short readable copy, for example <code>MeetPoint · Miguel: I NEED HELP. 38.71394, -9.13968</code>. Anyone on the channel can read it in the Meshtastic app — handy for rescuers.</li>
+      </ul>
+      <p><strong>Channel</strong> picks the radio channel to send on; 0 is the primary channel. Everyone in the family should use the same one.</p>
+      <div class="note"><p><strong>Radio is slow.</strong> One message takes a second or two of air time. It's made for short news, which is exactly what MeetPoint sends. A radio left switched on high up — a window, a roof — passes messages on for everyone around.</p></div>
+    </section>
+
+    <!-- 11 -->
+    <section class="ch" id="emergency">
+      <h2><span class="num">11</span>Emergency numbers</h2>
+      <p class="intro">The <strong>Emergency</strong> section has a call button for the emergency number of the country you are in: 112 in Portugal and most of Europe, 911 in the US, Canada and Mexico, 999 in the UK, 000 in Australia. Where police, ambulance and fire have different numbers, there's a button for each.</p>
+      <p>MeetPoint knows the country from where you are, even without internet, and changes it on its own when you cross a border. Tap <strong>Country</strong> to choose one yourself while your location isn't known. For a country that isn't listed, 112 works from most mobile phones.</p>
+      <p><strong>My position</strong> shows your coordinates and how exact they are. Read them out to rescuers if you can't say where you are.</p>
+    </section>
+
+    <!-- 12 -->
+    <section class="ch" id="good">
+      <h2><span class="num">12</span>A good plan</h2>
+      <ul>
+        <li><strong>Walk to each meeting point once, together</strong>, the way you would go on the day, and place it with <strong>Use Where I Am Now</strong>.</li>
+        <li><strong>Choose open ground</strong>, away from buildings, trees, walls and power lines, that every family member, children included, can find on their own.</li>
+        <li><strong>Children:</strong> make sure they know the points without a phone. Write the plan on paper for their school bag.</li>
+        <li><strong>Invite someone who lives far away.</strong> When local lines are busy, a call or text to another town often gets through.</li>
+        <li><strong>Test it:</strong> turn off Wi-Fi and mobile data on two phones and send “I'm OK” — it should arrive over Bluetooth.</li>
+        <li><strong>Battery:</strong> a charged power bank in the emergency bag. Lower the screen brightness on the day.</li>
+        <li><strong>Check it twice a year</strong>, for example when the clocks change: new numbers, a new school, a new job.</li>
+      </ul>
+      <p>For the full picture, see your national civil protection authority. In Portugal that's ANEPC (<a href="https://prociv.gov.pt">prociv.gov.pt</a>).</p>
+    </section>
+
+    <!-- 13 -->
+    <section class="ch" id="trouble">
+      <h2><span class="num">13</span>Troubleshooting</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What you see</th><th>What to do</th></tr></thead>
+          <tbody>
+            <tr><td>“Location is off for MeetPoint”</td><td>iPhone: Settings → Privacy &amp; Security → Location Services → MeetPoint → <strong>Always</strong>. Android: Settings → Apps → MeetPoint → Permissions → Location → <strong>Allow while using the app</strong>, and allow its notifications.</td></tr>
+            <tr><td>“Finding your position…” stays</td><td>Go outside or near a window. The first GPS fix without a network can take a minute.</td></tr>
+            <tr><td>Someone shows Offline</td><td>Their MeetPoint was closed, the phone is off, or it has no network and no family phone nearby. Ask them not to swipe MeetPoint away, on iPhone to allow location <strong>Always</strong>, and on Android to keep MeetPoint's notification on.</td></tr>
+            <tr><td>Internet icon yellow</td><td>The phone has a connection but the relay doesn't answer. Check ⚙︎ → Internet Relay: everyone must use the same server. On Android, check that mobile data is on.</td></tr>
+            <tr><td>Nearby icon yellow</td><td>Bluetooth is on but no MeetPoint phone is in range. Come within 10–50 m; the other phone needs MeetPoint running.</td></tr>
+            <tr><td>Nearby icon grey</td><td>Bluetooth is off, or MeetPoint isn't allowed to use it. Turn it on.</td></tr>
+            <tr><td>My icon stays yellow</td><td>Nobody in the family has your news yet. It keeps going out on its own; if it's urgent, also use Send My Situation by SMS.</td></tr>
+            <tr><td>No SMS button</td><td>This phone can't send texts (no SIM). Use the other networks.</td></tr>
+            <tr><td>Radio: “Looking for…” stays</td><td>Switch the radio on and bring it close. Close the Meshtastic app, or disconnect the radio in it.</td></tr>
+            <tr><td>“Sent, but no other radio answered”</td><td>No other radio was in reach. Move higher or outside; radios reach much further with a clear view.</td></tr>
+            <tr><td>The map shows no streets</td><td>The offline map wasn't saved yet: it needs internet once. Until then, the Simple Map still shows points, family and distances.</td></tr>
+            <tr><td>Search finds nothing</td><td>Search needs internet. Try a shorter name, or tap the map instead.</td></tr>
+            <tr><td>“This message is from another family's plan”</td><td>The link or invite belongs to a different family. Ask your family for theirs.</td></tr>
+            <tr><td>Wrong emergency number</td><td>Emergency → Country → choose the country, until MeetPoint knows where you are.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="ch" id="reference">
+      <h2><span class="num">14</span>Quick reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>To…</th><th>Do this</th></tr></thead>
+          <tbody>
+            <tr><td>Make a family</td><td>Make a New Plan (first start) → About You → ✓</td></tr>
+            <tr><td>Join a family</td><td>Scan their invite QR code or open their link → your name → ✓</td></tr>
+            <tr><td>Invite someone</td><td>⚙︎ → Invite Family — QR Code or Link</td></tr>
+            <tr><td>Change the plan</td><td>⚙︎ → change → ✓ (the family's creator)</td></tr>
+            <tr><td>Place a point</td><td>⚙︎ → point → tap the map / Use Where I Am Now / Search</td></tr>
+            <tr><td>Add an emergency point</td><td>⚙︎ → Add Emergency Point</td></tr>
+            <tr><td>Tell everyone you're safe</td><td>I'm OK</td></tr>
+            <tr><td>Ask for help</td><td>Help</td></tr>
+            <tr><td>Take it back</td><td>Tap the lit button again</td></tr>
+            <tr><td>Send a text message</td><td>Send My Situation by SMS</td></tr>
+            <tr><td>See the networks</td><td>Tap the icons at the top</td></tr>
+            <tr><td>Distances, coordinates</td><td>Map → table under the map; tap coordinates to copy</td></tr>
+            <tr><td>Call or text someone</td><td>Touch and hold their row in Family</td></tr>
+            <tr><td>Link a radio</td><td>⚙︎ → Meshtastic Radio → Search for Radios</td></tr>
+            <tr><td>Use your own relay</td><td>⚙︎ → Internet Relay → Relay server</td></tr>
+            <tr><td>Change the language</td><td>⚙︎ → Language</td></tr>
+            <tr><td>See or share the log</td><td>Log (end of the plan) → Share Log File</td></tr>
+            <tr><td>Remove the plan</td><td>⚙︎ → Delete Plan</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">MeetPoint collects no data and has no account. Messages are sealed with AES-GCM using a key from your family's plan · internet relay over ntfy · phones nearby over Bluetooth LE (and Multipeer between iPhones) · Meshtastic over Bluetooth to the radio.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="wrap">MeetPoint · family emergency meeting plan, for iPhone and Android · © 2026 Miguel Gonçalves</footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+:root {
+  --bg: #faf6f1; --surface: #ffffff; --ink: #1d140d; --muted: #6a5c50; --line: #e6dbcf;
+  --neon: #c25a00; --neon-soft: #fdeedd;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f0b08; --surface: #1a1410; --ink: #f6efe8; --muted: #b3a597; --line: #33281f;
+          --neon: #ff9a3c; --neon-soft: #3a210c; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); }
+a { color: var(--neon); }
+/* Wide page with side gutters (same as the manual); text lines stay readable with max-width on the text itself. */
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 56px); }
+p { max-width: 75ch; }
+.soon-note, .card p { max-width: none; }
+/* No rubber-band bounce at the top and bottom: it pulled the fixed bar down with the page. */
+html, body { overscroll-behavior-y: none; }
+nav.top { display: flex; align-items: center; gap: 18px; padding-block: 10px; flex-wrap: wrap; position: sticky; top: 0; z-index: 20; background: var(--bg); }
+nav.top .home { display: flex; align-items: center; gap: 10px; font: 700 17px var(--display); color: var(--ink); text-decoration: none; margin-right: auto; }
+nav.top .home img { width: 26px; height: 26px; border-radius: 7px; }
+nav.top a:not(.home) { color: var(--muted); text-decoration: none; font-size: 15px; }
+nav.top a:not(.home):hover, nav.top a[aria-current] { color: var(--neon); }
+h1 { font: 800 clamp(32px, 4.5vw, 46px)/1.08 var(--display); letter-spacing: -0.01em; margin: 32px 0 14px; text-wrap: balance; }
+h2 { font: 700 22px/1.25 var(--display); margin: 48px 0 12px; }
+.lede { font-size: 19px; color: var(--muted); max-width: 60ch; }
+.hero-icon { width: 96px; height: 96px; border-radius: 22px; margin-top: 32px; box-shadow: 0 0 0 1px var(--line), 0 10px 40px -12px var(--neon); }
+.buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-block: 24px; }
+.btn { display: inline-block; padding: 12px 20px; border-radius: 12px; font-weight: 700; text-decoration: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.stores { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 16px; margin-block: 24px 0; }
+.store { display: inline-flex; line-height: 0; }
+.store img { height: 48px; width: auto; }
+.store.soon { cursor: default; }
+.soon-note { flex-basis: 100%; margin: 0; text-align: center; font-size: 0.9rem; color: var(--muted); }
+.btn.primary { background: var(--neon); border-color: var(--neon); color: #fff; }
+video { width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; border: 1px solid var(--line); display: block; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-block: 28px; }
+/* Support: two questions per row, with more room. */
+.grid.faq { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+@media (max-width: 700px) { .grid.faq { grid-template-columns: 1fr; } }
+.grid.faq .card { padding: 22px 24px; }
+.grid.faq .card h3 { margin-bottom: 8px; }
+.grid.faq .card p { line-height: 1.6; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.card h3 { margin: 0 0 4px; font: 700 17px var(--display); }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.updated { color: var(--muted); font-size: 15px; }
+.contact { margin-block: 28px; }
+footer { border-top: 1px solid var(--line); margin-top: 48px; padding-block: 24px 40px; color: var(--muted); font-size: 14px; }
+/* Light orange button in the dark: dark text reads better than white on it. */
+@media (prefers-color-scheme: dark) { .btn.primary { color: #1d140d; } }
+.hero-icon { box-shadow: 0 0 0 1px var(--line), 0 10px 40px -12px var(--neon); }
