@@ -1,0 +1,19 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "24L8QBGF55.com.miguelgoncalves.meetpoint"
+        ],
+        "components": [
+          {
+            "/": "/m/*"
+          },
+          {
+            "/": "/join/*"
+          }
+        ]
+      }
+    ]
+  }
+}
