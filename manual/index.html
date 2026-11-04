@@ -241,8 +241,7 @@ html { scroll-padding-top: 64px; }
           <tbody>
             <tr><td>Location — Always</td><td>Distances to the meeting points, telling the family when you arrive at one, and sending your position while MeetPoint is in the background. On iPhone, choose <strong>Allow While Using App</strong> first, then <strong>Change to Always Allow</strong> when iOS asks. On Android, <strong>While using the app</strong> is enough: MeetPoint stays running with its notification.</td></tr>
             <tr><td>Bluetooth / Nearby devices</td><td>Passing messages phone to phone with no network, and linking a Meshtastic radio.</td></tr>
-            <tr><td>Notifications (Android)</td><td>Keeps MeetPoint running in the background (a quiet notification stays in the bar), and tells you when a MeetPoint text message arrives.</td></tr>
-            <tr><td>SMS (Android)</td><td>Sending your situation by text message from inside MeetPoint, and reading the MeetPoint links your family texts you.</td></tr>
+            <tr><td>Notifications (Android)</td><td>Keeps MeetPoint running in the background (a quiet notification stays in the bar).</td></tr>
             <tr><td>Camera</td><td>Scanning a family invite QR code.</td></tr>
           </tbody>
         </table>
@@ -382,8 +381,9 @@ html { scroll-padding-top: 64px; }
           <thead><tr><th>Colour</th><th>Meaning</th></tr></thead>
           <tbody>
             <tr><td><span class="dot ok"></span>Green</td><td>Working now.</td></tr>
-            <tr><td><span class="dot warn"></span>Yellow</td><td>Switched on, but not through yet: Wi-Fi with no answer from the relay, Bluetooth on with no MeetPoint phone in range, a radio still connecting.</td></tr>
-            <tr><td><span class="dot off"></span>Grey</td><td>Off: no Wi-Fi or mobile data, Bluetooth off, no radio linked.</td></tr>
+            <tr><td><span class="dot warn"></span>Yellow</td><td>Switched on, but not through yet: Wi-Fi with no answer from the relay, Bluetooth on with no MeetPoint phone in range, a radio connected but no family radio heard yet.</td></tr>
+            <tr><td><span class="dot off"></span>Grey</td><td>Off: no Wi-Fi or mobile data, Bluetooth off, no radio linked or the radio still connecting.</td></tr>
+            <tr><td><span class="dot off"></span>Struck through</td><td>You switched this network off in Networks (see below).</td></tr>
             <tr><td><span class="dot" style="background:#1f7ae0;color:#1f7ae0"></span>Blue (iPhone)</td><td>Nearby with Bluetooth off but Wi-Fi on: other iPhones can still be reached over Wi-Fi, Android phones can't.</td></tr>
           </tbody>
         </table>
@@ -398,6 +398,8 @@ html { scroll-padding-top: 64px; }
       <h3>4 · Meshtastic radio</h3>
       <p>A small LoRa radio that carries short messages for kilometres, from radio to radio, with no phone network (chapter 10).</p>
       <p>Tap the network icons to see each network in words, and how many messages this phone is carrying to pass on.</p>
+      <h3>Switching a network off</h3>
+      <p>All four are on, and that's how they should stay. To test one network on its own, or to save battery, <strong>press and hold</strong> a network in Networks and confirm with ✓. It shows “Turned off”, and its icon on the plan is struck through. Press and hold it again to switch it back on.</p>
     </section>
 
     <!-- 09 -->
@@ -405,12 +407,9 @@ html { scroll-padding-top: 64px; }
       <h2><span class="num">09</span>Text messages</h2>
       <p class="intro">MeetPoint never sends a text message on its own. When you want one to go out, tap <strong>Send My Situation by SMS</strong>.</p>
       <p>The text goes to everyone in the family with a number. It says who you are, how you are (“I'm OK”, “I NEED HELP”, or where you are) and any emergency points, with a MeetPoint link that carries the same news sealed. For example:</p>
-      <p><code>Miguel: I'm OK. Open in MeetPoint: meetpoint://m/…</code></p>
-      <ul>
-        <li><strong>iPhone:</strong> Messages opens with everyone's numbers and the text filled in. Tap send. Receiving one, tap its MeetPoint link to open the news in the app.</li>
-        <li><strong>Android:</strong> MeetPoint shows the text, and sends it itself when you confirm. Received MeetPoint texts are read on their own, with a notification.</li>
-      </ul>
-      <p>A family member who can only be reached by SMS gets a confirmation back by SMS: on Android on its own, on iPhone Messages opens with the confirmation ready, one tap to send.</p>
+      <p><code>Miguel: I'm OK. Open in MeetPoint: https://meetpoint-family.github.io/m/#…</code></p>
+      <p>Your messages app opens with everyone's numbers and the text filled in: tap send. Receiving one, tap its MeetPoint link (<code>https://meetpoint-family.github.io/m/#…</code>) to open the news in MeetPoint. What the link carries comes after the <code>#</code>: it never reaches the website, and only your family's MeetPoint can read it.</p>
+      <p>A family member who can only be reached by SMS gets a confirmation back by SMS: the messages app opens with it ready, one tap to send.</p>
       <p>On an iPhone, Messages sends it as an SMS over the mobile network when there's no internet if Settings → Apps → Messages → <strong>Send as Text Message</strong> is on. With no signal at all, texts wait and go out by themselves when the network comes back.</p>
     </section>
 
@@ -424,9 +423,21 @@ html { scroll-padding-top: 64px; }
         <li>In MeetPoint, open ⚙︎ → <strong>Meshtastic Radio</strong> → <strong>Search for Radios</strong>.</li>
         <li>Tap your radio. If the phone asks for a PIN, it's on the radio's screen (or 123456 on radios without one).</li>
       </ol>
-      <p>From then on MeetPoint reconnects by itself whenever the radio is on and near. The Radio icon shows its name and how many other radios it heard in the last two hours.</p>
+      <p>From then on MeetPoint reconnects by itself whenever the radio is on and near. The first connection can take half a minute: the radio tells MeetPoint its settings and every radio it knows.</p>
+      <h3>The radio icon</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Colour</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><span class="dot off"></span>Grey</td><td>No radio linked, Bluetooth off, the radio still connecting, or a radio with no region yet.</td></tr>
+            <tr><td><span class="dot warn"></span>Yellow</td><td>Connected and set up, but no family member's radio heard yet.</td></tr>
+            <tr><td><span class="dot ok"></span>Green</td><td>A family member's radio was heard lately, with the time. MeetPoint learns which radios are the family's from their messages.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A radio that's switched off sends nothing, so the icon can only notice it went quiet: yellow again about 45 minutes after it was last heard. While your “I'm OK” or “Help” is on, MeetPoint asks the family radio once every 5 minutes whether it's there — one tiny message, and none when it was heard anyway — so the icon follows within about 12 minutes.</p>
       <h3>Set Up Radio</h3>
-      <p>A new radio sends nothing until it has a region. <strong>Set Up Radio</strong> sets its name, region (the law sets which frequencies radios may use where you are) and mode, and the radio restarts to take them. Radios only hear each other in the same mode: keep <strong>Long Fast</strong> unless everyone changes. Only these settings change; the radio keeps its channels and still passes on messages for other Meshtastic radios.</p>
+      <p>A new radio sends nothing until it has a region. <strong>Set Up Radio</strong> sets its name, region (the law sets which frequencies radios may use where you are) and mode. Tap ✓: the radio restarts to take them, and the radio page shows it saving and then “Set up for MeetPoint”. Radios only hear each other in the same mode: keep <strong>Long Fast</strong> unless everyone changes. Only these settings change; the radio keeps its channels and still passes on messages for other Meshtastic radios.</p>
       <h3>What goes over the radio</h3>
       <ul>
         <li>Your “I'm OK”, “Help”, arrivals and position, sealed: other MeetPoint phones on the radio network read them, and nobody else can.</li>
@@ -434,6 +445,8 @@ html { scroll-padding-top: 64px; }
         <li>With <strong>Also Send as Plain Text</strong> on (off unless you turn it on), a short readable copy, for example <code>MeetPoint · Miguel: I NEED HELP. 38.71394, -9.13968</code>. Anyone on the channel can read it in the Meshtastic app — handy for rescuers.</li>
       </ul>
       <p><strong>Channel</strong> picks the radio channel to send on; 0 is the primary channel. Everyone in the family should use the same one.</p>
+      <h3>A radio that was reset</h3>
+      <p>After new firmware or a reset, a radio forgets the phones it knew. On an iPhone, MeetPoint then says <strong>Pairing Lost</strong>: open Settings → Bluetooth, tap ⓘ next to the radio (it may show its old name), choose <strong>Forget This Device</strong>, and link it again. Some radios with a touch screen, like the T-Deck, forget phones every time they restart: set their Bluetooth to <strong>No PIN</strong> (in the radio's own settings, or the Meshtastic app) and they connect without pairing. After a restart, put a touch-screen radio back in Bluetooth mode.</p>
       <div class="note"><p><strong>Radio is slow.</strong> One message takes a second or two of air time. It's made for short news, which is exactly what MeetPoint sends. A radio left switched on high up — a window, a roof — passes messages on for everyone around.</p></div>
     </section>
 
@@ -476,7 +489,9 @@ html { scroll-padding-top: 64px; }
             <tr><td>My icon stays yellow</td><td>Nobody in the family has your news yet. It keeps going out on its own; if it's urgent, also use Send My Situation by SMS.</td></tr>
             <tr><td>No SMS button</td><td>This phone can't send texts (no SIM). Use the other networks.</td></tr>
             <tr><td>Radio: “Looking for…” stays</td><td>Switch the radio on and bring it close. Close the Meshtastic app, or disconnect the radio in it.</td></tr>
-            <tr><td>“Sent, but no other radio answered”</td><td>No other radio was in reach. Move higher or outside; radios reach much further with a clear view.</td></tr>
+            <tr><td>Radio icon yellow</td><td>Connected, but no family radio heard. Check that the family's radios are on, on the same region, mode and channel. Move higher or outside; radios reach much further with a clear view.</td></tr>
+            <tr><td>Radio: “Pairing Lost” (iPhone)</td><td>The radio was reset. Settings → Bluetooth → ⓘ next to the radio → Forget This Device, then link it again (chapter 10).</td></tr>
+            <tr><td>An icon is struck through</td><td>That network was switched off. Networks → press and hold it → ✓.</td></tr>
             <tr><td>The map shows no streets</td><td>The offline map wasn't saved yet: it needs internet once. Until then, the Simple Map still shows points, family and distances.</td></tr>
             <tr><td>Search finds nothing</td><td>Search needs internet. Try a shorter name, or tap the map instead.</td></tr>
             <tr><td>“This message is from another family's plan”</td><td>The link or invite belongs to a different family. Ask your family for theirs.</td></tr>

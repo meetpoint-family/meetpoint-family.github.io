@@ -18,7 +18,7 @@
   <a href="../privacy/" aria-current="page">Privacy</a>
 </nav>
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated: 3 November 2026 · applies to MeetPoint for iPhone and Android and to this website</p>
+<p class="updated">Last updated: 4 November 2026 · applies to MeetPoint for iPhone and Android and to this website</p>
 <p>MeetPoint is made by Miguel Gonçalves. This policy explains what the app does with your data. In short: <strong>the developer collects no personal data.</strong> Your plan, your position and your messages go only to your own family, sealed with a key that only your family's phones have.</p>
 <h2>Data we collect</h2>
 <p>None. MeetPoint has no account, no analytics, no advertising and no tracking. The developer can't see your plan, your family, your position or your messages.</p>
@@ -32,7 +32,8 @@
   <li><strong>Internet relay.</strong> Sealed messages go through an ntfy relay server — by default one run by the developer, or one you choose in the settings. The server can't read them or tell who is talking; it sees the sealed message, a topic name worked out from your family's key, the time, and the IP address of the phone that connects. Messages are kept for at most 12 hours so phones that were offline catch up, then deleted. Server logs are used only to keep the service running.</li>
   <li><strong>Phones nearby.</strong> Over Bluetooth (and Wi-Fi between iPhones), sealed messages pass to other phones running MeetPoint. Phones of other families may carry your sealed messages to pass them on, without being able to read them, and drop them when they expire (at most 7 days).</li>
   <li><strong>Meshtastic radio.</strong> If you link a radio, sealed messages go out over LoRa. If you turn on <em>Also Send as Plain Text</em> (off by default), a short readable copy with your name and position is sent too, and anyone on that radio channel can read it.</li>
-  <li><strong>Text message (SMS).</strong> Only when you tap <em>Send My Situation by SMS</em>, or confirm a family member's message by SMS. A text message is not encrypted: it contains your name, how you are and where you are, and goes through your mobile operator like any SMS. On Android, MeetPoint reads incoming text messages only to find MeetPoint links from your family.</li>
+  <li><strong>Text message (SMS).</strong> Only when you tap <em>Send My Situation by SMS</em>, or confirm a family member's message by SMS. A text message is not encrypted: it contains your name, how you are and where you are, and goes through your mobile operator like any SMS. Your messages app sends it, and MeetPoint never reads your text messages: you open a family message by tapping its link. (A separate Android version installed from outside Google Play can, with your permission, send texts itself and read incoming texts only to find MeetPoint links from your family.)</li>
+  <li><strong>MeetPoint links.</strong> Links in texts and invites point to this website (<code>/m/#…</code>, <code>/join/#…</code>), so any messages app can open them. What they carry comes after the <code>#</code>, which a browser never sends to a website: the page only hands it to the MeetPoint app on your phone.</li>
 </ul>
 <h2>Maps and search</h2>
 <p>Street maps come from OpenFreeMap (OpenStreetMap data). To download them, your phone asks OpenFreeMap's servers for the map around your meeting points, which gives them your IP address and those areas, as with any map. Searching for an address uses Apple's (iPhone) or Google's (Android) location services. The country for the emergency number is looked up on the phone, and checked with Apple's service on iPhone when there is internet.</p>
