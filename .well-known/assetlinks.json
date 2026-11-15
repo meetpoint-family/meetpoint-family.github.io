@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.miguelgoncalves.meetpoint",
+      "sha256_cert_fingerprints": [
+        "FD:E5:37:81:18:47:AF:D2:AC:66:0C:DC:BD:C9:64:D2:3D:F4:82:45:79:C4:F8:40:85:BD:B8:40:C0:2F:E9:E1"
+      ]
+    }
+  }
+]
