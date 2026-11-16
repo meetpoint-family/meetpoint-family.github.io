@@ -52,3 +52,8 @@ footer { border-top: 1px solid var(--line); margin-top: 48px; padding-block: 24p
 /* Light orange button in the dark: dark text reads better than white on it. */
 @media (prefers-color-scheme: dark) { .btn.primary { color: #1d140d; } }
 .hero-icon { box-shadow: 0 0 0 1px var(--line), 0 10px 40px -12px var(--neon); }
+/* Privacy at a glance, under the opening text. */
+.badges { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
+.badges li { background: var(--neon-soft); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 700; }
+.privacy { padding-left: 1.2em; max-width: 75ch; }
+.privacy li { margin-block: 6px; }
